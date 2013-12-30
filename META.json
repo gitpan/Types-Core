@@ -1,0 +1,44 @@
+{
+   "abstract" : "Ease-of-use functions for perl core Types",
+   "author" : [
+      "LAWALSH (LAWALSH@cpan.org)"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 6.82, CPAN::Meta::Converter version 2.132830",
+   "license" : [
+      "unknown"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Types-Core",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Test::Simple" : "0.44",
+            "Xporter" : "v0.0.4",
+            "mem" : "v0.3.2"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Xporter" : "v0.0.4",
+            "mem" : "v0.3.2"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "v0.1.1"
+}
