@@ -9,20 +9,25 @@ Types::Core - Core types defined as tests and literals (ease of use)
 
 =head1 VERSION
 
-Version "0.1.2";
+Version "0.1.3";
 
 =cut
 
 
 
 {	package Types::Core;
-	use 5.12.0;
+
 	use strict;
 	use mem;
-	our $VERSION='0.1.2';
+	our $VERSION='0.1.3';
 
-#{{{
 
+# 0.1.3 - investigate fails on perl 5.12.x: 
+# 				- changed prototypes on single arg tests to use '$' instead of '*';
+#					- changed test to use parens around unary ops (needed in 5.12 & before)
+#					- tested back to 5.8.9 ( & remove version restriction "use 5.12").
+# 			- added tests for CODE & REF
+# 			- clarified true/false returned values
 # 0.1.2 - Write tests to verify solo string equality, returning $var on true,
 # 				capturing undef and returning false;
 # 			- doc updates
@@ -73,7 +78,7 @@ Version "0.1.2";
 	sub subProto($) { my $subref = $_[0];
 		use B ();
 		CODE($subref) or die "subProto: expected CODE ref, not " . 
-													(ref $subref) // "(undef)";
+													((ref $subref) || "(undef)");
 		B::svref_2object($subref)->GV->PV;
 	}
 
@@ -149,12 +154,45 @@ Same as:
 
 For the most basic functions listed in the Synopsis, they take
 either 0 or 1 arguments.  If 1 parameter, then they test it
-to see if the C<ref> is of the given I<type> (blessed or not) & returns
-true or false.
+to see if the C<ref> is of the given I<type> (blessed or not).
+If false, I<C<undef>> is returned, of true, the ref, itself is returned.
 
 For no args, they return literals of themselves, allowing the 
 named strings to be used as Literals w/o quotes.
 
+=head1 More Examples
+
+=head4 Initialization
+
+  our %field_types = (Paths{type => ARRAY, ...});
+
+=head4 Flow Routing
+
+    ...
+    return statAR_2_Ino_t($path,$arg)    if $ref_arg eq ARRAY;
+    return stat_t_2_Ino_t($path, $arg)   if $ref_arg eq 'stat_t' }
+  else { _path_2_Ino_t($path) }
+
+=head4 Data Verification
+
+  sub Type_check($;$) { ...
+    if (ARRAY $cfp) { 
+      for (@$cfp) { 
+        die P "Field %s does not exist", $_ unless exists $v->{$_}; 
+        my $cls_ftpp = $class."::field_types"; 
+        if (HASH $cls_ftpp) { 
+          if ($cls_ftpp->{type} eq ARRAY) {  ...
+
+=head4 Param Checking
+
+  sub popable (+) { 
+    my $ar=$_[0]; 
+    ARRAY $ar or die P "popable only works with arrays, got %s", ref $ar; 
+
+=head4 Return Value Checks and Dereference Protection
+
+  my $Inos = $mp->get_sorted_Ino_t_Array; 
+  return undef unless ARRAY $Inos and @$Inos >= 2;
 
 =cut 
 
@@ -202,9 +240,10 @@ though it is not needed).
 
 =head1 EhV Example
 
-In order to prevent automatic creation of variables, when accessed
-or tested for C<undef>, (autovivification), one must test
-for existence first, before attempting to read the value.
+In order to prevent automatic creation of variables when accessed
+or tested for C<undef>, (i.e. autovivification), one must test
+for existence first, before attempting to read or test the
+'defined'-ness of the value.
 
 This results in a 2 step process to retrive a value:
 
@@ -244,15 +283,23 @@ with C<EhV>).
 =cut
 
 	sub EhV($*) {	my ($arg, $field) = @_;
-		HASH $arg && defined $field && exists $arg->{$field} ? $arg->{$field} : undef
+		(HASH $arg) && defined $field && exists $arg->{$field} ? 
+																						$arg->{$field} : undef
 	}
 
 
-	sub blessed (*) { my $arg = $_[0];
+	sub blessed ($) { my $arg = $_[0];
 		ref $arg && ! exists $TYPES{ref $arg} ? $arg : undef
 	}
 	use Xporter;
 
 1}
+
+=head3 Compatibility Note with Perl 5.12.5 and earlier
+
+In order for earlier perls to parse things correctly parentheses may be
+needed if unrelated arguments follow the B<type> tests.  
+
+=cut 
 
 # vim: ts=2 sw=2

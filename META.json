@@ -22,9 +22,7 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Test::Simple" : "0.44",
-            "Xporter" : "v0.0.4",
-            "mem" : "v0.3.2"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "configure" : {
@@ -35,10 +33,10 @@
       "runtime" : {
          "requires" : {
             "Xporter" : "v0.0.4",
-            "mem" : "v0.3.2"
+            "mem" : "v0.4.0"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "v0.1.2"
+   "version" : "v0.1.3"
 }

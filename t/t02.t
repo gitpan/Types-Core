@@ -26,10 +26,10 @@ my $array=[];
 my $undef=undef;
 
 
-ok(!ARRAY $scalar, "scalar ! ARRAY");
+ok((!ARRAY $scalar), "scalar ! ARRAY");
 
-ok(ARRAY $array, "ARRAY array?");
-ok($array eq ARRAY $array, "array eq ARRAY array?");
-ok(!ARRAY $undef, "!ARRAY undef?");
+ok((ARRAY $array), "ARRAY array?");
+ok($array eq (ARRAY $array), "array eq ARRAY array?");
+ok(!(ARRAY $undef), "!ARRAY undef?");
 ok (ARRAY eq 'ARRAY', "bareword eq quoted?");
 
