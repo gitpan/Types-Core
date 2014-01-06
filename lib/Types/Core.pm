@@ -9,19 +9,18 @@ Types::Core - Core types defined as tests and literals (ease of use)
 
 =head1 VERSION
 
-Version "0.1.3";
+Version "0.1.4";
 
 =cut
-
-
 
 {	package Types::Core;
 
 	use strict;
 	use mem;
-	our $VERSION='0.1.3';
+	our $VERSION='0.1.4';
 
 
+# 0.1.4 - Add BUILD_REQ for more modern Ext:MM
 # 0.1.3 - investigate fails on perl 5.12.x: 
 # 				- changed prototypes on single arg tests to use '$' instead of '*';
 #					- changed test to use parens around unary ops (needed in 5.12 & before)

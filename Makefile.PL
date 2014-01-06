@@ -8,7 +8,8 @@ WriteMakefile(
     VERSION_FROM => 'lib/Types/Core.pm', # finds \$VERSION
     AUTHOR       => 'LAWALSH (LAWALSH@cpan.org)',
     ABSTRACT     => 'Ease-of-use functions for perl core Types',
+    BUILD_REQUIRES=> { 'ExtUtils::MakeMaker' => '6.8.2', },
     PREREQ_PM    => {
-										 'mem'	=> '0.4.0',Xporter => '0.0.4',
+										 'mem'	=> '0.4.3',Xporter => '0.0.7',
                     },
 );

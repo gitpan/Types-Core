@@ -3,7 +3,7 @@ abstract: 'Ease-of-use functions for perl core Types'
 author:
   - 'LAWALSH (LAWALSH@cpan.org)'
 build_requires:
-  ExtUtils::MakeMaker: 0
+  ExtUtils::MakeMaker: v6.8.2
 configure_requires:
   ExtUtils::MakeMaker: 0
 dynamic_config: 1
@@ -18,6 +18,6 @@ no_index:
     - t
     - inc
 requires:
-  Xporter: v0.0.4
-  mem: v0.4.0
-version: v0.1.3
+  Xporter: v0.0.7
+  mem: v0.4.3
+version: v0.1.4
